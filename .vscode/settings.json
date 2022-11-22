@@ -1,0 +1,11 @@
+{
+  "python.linting.mypyEnabled": true,
+  "mypy.runUsingActiveInterpreter": true,
+  "python.linting.mypyArgs": [
+    "--follow-imports=silent",
+    "--ignore-missing-imports",
+    "--show-column-numbers",
+    "--no-pretty",
+    "--check-untyped-defs"
+  ]
+}

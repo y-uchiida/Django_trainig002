@@ -9,6 +9,7 @@ packages = [{include = "django_training002"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 django = "3.2"
+django-stubs-ext = "^0.7.0"
 
 [tool.black]
 target-version = ['py311']

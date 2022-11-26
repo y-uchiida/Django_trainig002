@@ -11,33 +11,12 @@
               {{ article.created_at }} by
               <a href="#">{{ article.author }}</a>
             </p>
-            <a href="{% url "article" article.id %}" class="stretched-link">続きはこちら</a>
+            <a href="{% url "blog:article" article.id %}" class="stretched-link">続きはこちら</a>
           </div>
         {% endfor %}
-        <nav class="blog-pagination">
-          <div class="pagination">
-            <span class="step-links">
-              {% if articles.has_previous %}
-                <a class="btn btn-outline-primary" href="?page=1">&laquo; first</a>
-                <a class="btn btn-outline-primary"
-                   href="?page={{ articles.previous_page_number }}">previous</a>
-              {% endif %}
-              {% if articles.has_next %}
-                <a class="btn btn-outline-primary"
-                   href="?page={{ articles.next_page_number }}">next</a>
-                <a class="btn btn-outline-primary"
-                   href="?page={{ articles.paginator.num_pages }}">last &raquo;</a>
-              {% endif %}
-            </span>
-          </div>
-        </nav>
+        {% include "mysite/snipets/pagination.html" %}
       </div>
-      <aside class="col-md-4">
-        <div class="p-4 mb-3 bg-light rounded">
-          <h4 class="font-italic">ふじサンについて</h4>
-          <p class="mb-0">ようこそMy講座へ！</p>
-        </div>
-      </aside>
+      {% include "mysite/snipets/sidebar.html" %}
     </div>
   </main>
 {% endblock content %}

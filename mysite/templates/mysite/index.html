@@ -39,13 +39,15 @@
         <div class="row">
             <div class="col-md-8">
                 <h3 class="pb-4 font-italic border-bottom">Django Lesson</h3>
-                <div class="blog-post">
-                    <h2 class="blog-post-title">サンプル</h2>
-                    <p class="blog-post-meta">
-                        2014/01/01 by
-                        <a href="#">ふじサン</a>
-                    </p>
-                </div>
+                {% for article in articles %}
+                    <div class="blog-post">
+                        <h2 class="blog-post-title">{{ article.title }}</h2>
+                        <p class="blog-post-meta">
+                            {{ article.created_at }} by
+                            <a href="#">{{ article.author }}</a>
+                        </p>
+                    </div>
+                {% endfor %}
                 <nav class="blog-pagination">
                     <a class="btn btn-outline-primary" href="#">古い記事</a>
                     <a class="btn btn-outline-primary disabled" href="#">新しい記事</a>

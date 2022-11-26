@@ -1,7 +1,8 @@
 from django.shortcuts import render
-
-# Create your views here.
+from blog.models import Article
 
 
 def index(request):
-    return render(request, "blog/index.html")
+    articles = Article.objects.all()
+    context = {"title": "Really Site", "articles": articles}
+    return render(request, "mysite/index.html", context)

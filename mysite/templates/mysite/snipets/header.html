@@ -9,6 +9,11 @@
   <nav class="nav d-flex justify-content-between">
     <a class="p-2 link-secondary" href="{% url 'blog:index' %}">ブログ</a>
     <a class="p-2 link-secondary" href="#">お問い合わせ</a>
-    <a class="p-2 link-secondary" href="#">メニュー３</a>
+    {% if user.is_authenticated %}
+      <a href="{% url "logout" %}" class="p-2 link-secondary">ログアウト</a>
+    {% else %}
+      <a href="{% url "login" %}" class="p-2 link-secondary">ログイン</a>
+      <a href="{% url "signup" %}" class="p-2 link-secondary">ユーザー登録</a>
+    {% endif %}
   </nav>
 </div>

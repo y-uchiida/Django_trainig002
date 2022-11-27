@@ -38,6 +38,15 @@
           <button class="btn btn-primary btn-block my-3" type="submit">サインイン</button>
           {% csrf_token %}
         </form>
+        {% if "login" in request.path %}
+          <div class="text-center">
+            <a href="{% url "signup" %}">ユーザー登録はこちら</a>
+          </div>
+        {% else %}
+          <div class="text-center">
+            <a href="{% url "login" %}">ログインはこちら</a>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

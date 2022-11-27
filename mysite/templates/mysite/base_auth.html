@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="ja">
   <head>{% include "mysite/snipets/head.html" %}</head>
-  <body class="vh-100 d-flex align-items-center justify-content-center bg-light">
-    {% block content %}
-    {% endblock content %}
+  <body>
+    {% include "mysite/snipets/messages.html" %}
+    <div class="vh-100 d-flex align-items-center justify-content-center bg-light">
+      {% block content %}
+      {% endblock content %}
+    </div>
   </body>
 </html>

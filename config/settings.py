@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib import messages
 
 import django_stubs_ext
 
@@ -144,3 +145,12 @@ LOGOUT_URL = "/logout/"
 
 # ログアウト後に遷移するパス
 LOGOUT_REDIRECT_URL = "/login/"
+
+# システムメッセージ表示のクラス名
+MESSAGE_TAGS = {
+    messages.ERROR: "rounded-0 alert alert-danger",
+    messages.WARNING: "rounded-0 alert alert-warning",
+    messages.SUCCESS: "rounded-0 alert alert-success",
+    messages.INFO: "rounded-0 alert alert-info",
+    messages.DEBUG: "rounded-0 alert alert-secondary",
+}

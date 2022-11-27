@@ -132,3 +132,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # 独自に設定したUserモデルを管理用に使う
 AUTH_USER_MODEL = "mysite.User"
+
+# ログインページのパス
+LOGIN_URL = "/login/"
+
+# 認証成功後に遷移するパス
+LOGIN_REDIRECT_URL = "/"
+
+# ログアウト処理をするURL
+LOGOUT_URL = "/logout/"
+
+# ログアウト後に遷移するパス
+LOGOUT_REDIRECT_URL = "/login/"

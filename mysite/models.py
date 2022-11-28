@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class UserManager(BaseUserManager["User"]):
@@ -28,6 +30,9 @@ class UserManager(BaseUserManager["User"]):
 
 
 class User(AbstractBaseUser):
+    class Meta:
+        app_label = "mysite"
+
     email = models.EmailField(
         max_length=255,
         unique=True,
@@ -61,3 +66,27 @@ class User(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+class Profile(models.Model):
+    user = models.OneToOneField("mysite.User", unique=True, on_delete=models.CASCADE, primary_key=True)
+    username = models.CharField(default="匿名ユーザー", max_length=30)
+    zipcode = models.CharField(default="", max_length=8)
+    prefecture = models.CharField(default="", max_length=6)
+    city = models.CharField(default="", max_length=100)
+    address = models.CharField(default="", max_length=200)
+
+    class Meta:
+        app_label = "mysite"
+
+
+# def create_recode(user) -> Profile:
+#     profile = Profile.objects.create(user=user)
+#     return profile
+
+# Userのレコードが作成されたとき、同時にProfile のレコードも作成する
+# @receiver デコレータで、User レコードが作成されたときに起動するように指定
+@receiver(post_save, sender="mysite.User")
+def create_one_to_one(sender, **kwargs):
+    if kwargs["created"]:
+        Profile.objects.create(user=kwargs["instance"])

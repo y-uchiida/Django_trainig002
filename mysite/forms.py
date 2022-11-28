@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from .models import User
+from .models import Profile
 
 
 class UserCreationForm(forms.ModelForm[User]):
@@ -20,3 +21,15 @@ class UserCreationForm(forms.ModelForm[User]):
         if commit:
             user.save()
         return user
+
+
+class ProfileForm(forms.ModelForm[Profile]):
+    class Meta:
+        model = Profile
+        fields = (
+            "username",
+            "zipcode",
+            "prefecture",
+            "city",
+            "address",
+        )

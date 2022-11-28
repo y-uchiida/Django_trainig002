@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from blog.models import Article
 from django.contrib.auth.views import LoginView
-from .forms import UserCreationForm
+from .forms import UserCreationForm, ProfileForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 
 
 def index(request):
@@ -27,7 +29,21 @@ def signup(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             messages.success(request, "ユーザー登録しました")
             return redirect("/")
     return render(request, "mysite/auth.html")
+
+
+@login_required
+def my_page(request):
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            messages.success(request, "プロフィールを更新しました")
+
+    return render(request, "mysite/my_page.html")

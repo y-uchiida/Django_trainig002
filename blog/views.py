@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
-from blog.models import Article
+from blog.models import Article, Comment
+from blog.forms import CommentForm
 
 
 def index(request):
@@ -13,5 +14,15 @@ def index(request):
 
 def article(request, pk):
     article = Article.objects.get(pk=pk)
-    context = {"article": article}
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.article = article
+            comment.save()
+
+    comments = Comment.objects.filter(article=article)
+    context = {"article": article, "comments": comments}
+
     return render(request, "blog/article.html", context)

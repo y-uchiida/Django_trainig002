@@ -8,8 +8,9 @@ from django.contrib.auth import login
 
 
 def index(request):
+    popular_articles = Article.objects.order_by("-count")[:2]
     articles = Article.objects.all()[:3]
-    context = {"title": "Really Site", "articles": articles}
+    context = {"title": "Really Site", "articles": articles, "popular_articles": popular_articles}
     return render(request, "mysite/index.html", context)
 
 

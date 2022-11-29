@@ -15,6 +15,9 @@ def index(request):
 def article(request, pk):
     article = Article.objects.get(pk=pk)
     if request.method == "POST":
+        if request.POST.get("like_count", None):
+            article.count += 1
+            article.save()
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)

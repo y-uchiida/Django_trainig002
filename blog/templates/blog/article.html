@@ -6,6 +6,8 @@
         <h3 class="pb-4 font-italic">{{ article.title }}</h3>
         <p class="small text-muted text-end">{{ article.created_at }} by {{ article.author }}</p>
         <p>{{ article.text }}</p>
+        {% include "blog/snippets/like_count.html" %}
+        <hr class="my-4" />
         {% include "blog/snippets/comment.html" %}
       </div>
       {% include "mysite/snippets/sidebar.html" %}

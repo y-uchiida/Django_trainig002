@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
-from blog.models import Article, Comment
+from blog.models import Article, Comment, Tag
 from blog.forms import CommentForm
 
 
 def index(request):
-    articles = Article.objects.all()
+    if request.GET.get("tag") is not None:
+        tag = Tag.objects.get(slug=request.GET.get("tag"))
+        articles = Article.objects.filter(tags=tag)
+    else:
+        articles = Article.objects.all()
     paginator = Paginator(articles, 2)
     page_number = request.GET.get("page")
     context = {"articles": paginator.get_page(page_number), "page_number": page_number}
